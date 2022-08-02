@@ -9,7 +9,7 @@ from .models import Appointment
 class AppointmentView(View):
     model = Appointment
     template_name = 'make_appointment.html'
-    context_object_name = 'appointments'
+    context_object_name = 'appointment'
 
     def get(self, request, *args, **kwargs):
         return render(request, 'make_appointment.html', {})
@@ -20,4 +20,15 @@ class AppointmentView(View):
                                   message=request.POST['message'],)
         appointment.save()
 
+        send_mail(subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
+                  message=appointment.message,
+                  from_email='tlfordjango@mail.ru',
+                  recipient_list=['kiromotossindzi@gmail.com', ],
+                  )
+
         return redirect('make_appointment')
+
+
+
+
+        # send_mail(subject=f'{appointment.client_name}{appointment.date.strftime("%Y-%M-%d")}',

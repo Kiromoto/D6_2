@@ -9,9 +9,14 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+from dotenv import load_dotenv
 
 from pathlib import Path
 import os
+
+load_dotenv()
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t42k7+6^=-4y1f(+y6zv&x@8cgi@%s6&7@r28t3r)k18(w!jzl'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -135,3 +140,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")  # адрес сервера Яндекс-почты для всех один и тот же
+EMAIL_PORT = os.getenv("EMAIL_PORT")  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # пароль от почты
+EMAIL_USE_SSL = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
