@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block content %}
+<h3> Страница записи на приём </h3>
+<hr>
+<!--:make_appointment-->
+<form action="{% url 'make_appointment' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="client_name">Ваше имя</label>
+    <input type="text" name="client_name"><br>
+    <label for="message">Короткое описание вашей проблемы</label>
+    <input type="text" name="message"><br>
+    <label for="date">Выберите время</label>
+    <input type="date" name="date">.<br>
+    <input align="left" type="submit" value="Отправить" />
+
+<!--    {{ form.as_p }}-->
+<!--    <input align="left" type="submit" value="Записаться" />-->
+</form>
+
+{% endblock content %}
