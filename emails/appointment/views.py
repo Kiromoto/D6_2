@@ -15,7 +15,7 @@ class AppointmentView(View):
         return render(request, 'make_appointment.html', {})
 
     def post(self, request, *args, **kwargs):
-        appointment = Appointment(date=datetime.strptime(request.POST['date'], '%Y-%m-%d'),
+        appointment = Appointment(date=datetime.strptime(request.POST['date'], '%Y-%M-%d'),
                                   client_name=request.POST['client_name'],
                                   message=request.POST['message'],)
         appointment.save()
